@@ -1,12 +1,23 @@
-{{> menu }}
+{{> menu}}
 
-<div class="card mt-3">
-  <div class="card-header">
-    {{title}}
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">Web app template</h5>
-    <p class="card-text">A web app template.</p>
-  </div>
+<div class="mt-4 p-5 bg-light rounded">
+  <h1>🌤️ Friday</h1>
+  <p class="lead">Wo scheint am Wochenende die Sonne? Gib deinen Standort ein und finde die besten Ausflugsziele in deiner Nähe.</p>
 </div>
 
+<div class="card mt-4">
+  <div class="card-body">
+    <h5 class="card-title">Ausflug planen</h5>
+    <form action="/search" method="GET">
+      <div class="mb-3">
+        <label class="form-label">Dein Standort</label>
+        <input type="text" class="form-control" name="location" placeholder="z.B. Regensburg">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Maximale Entfernung (km)</label>
+        <input type="number" class="form-control" name="maxDistance" value="150" min="10" max="500">
+      </div>
+      <button type="submit" class="btn btn-primary">Suchen ☀️</button>
+    </form>
+  </div>
+</div>
