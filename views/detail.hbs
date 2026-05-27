@@ -1,5 +1,22 @@
 {{> menu}}
 
-<h2> {{destination.name}}</h2>
-<p> {{destination.country}} · {{destination.distance_km}} km entfernt</p>
-<p> {{destination.description}}</p>
+<h2>{{destination.name}}</h2>
+<p>{{destination.country}} · {{destination.distance_km}} km entfernt</p>
+<p>{{destination.description}}</p>
+
+{{#if user}}
+<div class="card mt-4" style="max-width: 400px;">
+  <div class="card-body">
+    <h5 class="card-title">Reise speichern</h5>
+    <form action="/destinations/{{destination.id}}/save" method="POST">
+      <div class="mb-3">
+        <label for="notes" class="form-label">Notizen</label>
+        <textarea class="form-control" id="notes" name="notes" rows="2" placeholder="z.B. Hotel buchen, Tickets kaufen..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">💾 Speichern</button>
+    </form>
+  </div>
+</div>
+{{else}}
+<p class="mt-4 text-muted"><a href="/login">Einloggen</a> um diese Reise zu speichern.</p>
+{{/if}}

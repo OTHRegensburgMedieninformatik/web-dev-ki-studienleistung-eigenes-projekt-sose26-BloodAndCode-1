@@ -1,5 +1,6 @@
 const logger = require("../utils/logger.js");
 const userstore = require("../models/user-store.js");
+const tripstore = require("../models/trip-store.js");
 
 const accounts = {
   login(request, response) {
@@ -46,6 +47,27 @@ const accounts = {
       return await userstore.getUserById(userId);
     }
     return undefined;
+  },
+  async saveTrip(request, response) {
+    const user = await accounts.getCurrentUser(request);
+    if (!user) {
+      return response.redirect("/login");
+    }
+    const destinationId = request.params.id;
+    const notes = request.body.notes;
+    await tripstore.saveTrip(user.id, destinationId, notes);
+    logger.info("Trip saved, redirecting");
+    response.redirect("/destinations/" + destinationId);
+  },
+
+  async myTrips(request, response) {
+    const user = await accounts.getCurrentUser(request);
+    if (!user) {
+      return response.redirect("/login");
+    }
+    const trips = await tripstore.getTripsByUser(user.id);
+    const viewData = { user, trips };
+    response.render("trips", viewData);
   },
 };
 

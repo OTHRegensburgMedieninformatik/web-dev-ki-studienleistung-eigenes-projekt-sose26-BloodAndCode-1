@@ -1,0 +1,24 @@
+{{> menu}}
+
+<h2 class="mt-4">Meine Reisen</h2>
+
+{{#if trips.length}}
+<div class="row mt-3">
+  {{#each trips}}
+  <div class="col-md-4 mb-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{this.name}}</h5>
+        <p class="card-text text-muted">{{this.distance_km}} km entfernt</p>
+        {{#if this.notes}}
+        <p class="card-text">📝 {{this.notes}}</p>
+        {{/if}}
+        <small class="text-muted">Gespeichert am {{this.created_at}}</small>
+      </div>
+    </div>
+  </div>
+  {{/each}}
+</div>
+{{else}}
+<p class="text-muted mt-3">Du hast noch keine Reisen gespeichert.</p>
+{{/if}}

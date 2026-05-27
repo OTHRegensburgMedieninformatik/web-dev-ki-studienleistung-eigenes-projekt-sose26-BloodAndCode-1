@@ -25,3 +25,11 @@ insert Into destinations (name, country, lat, lon, distance_km, description) VAL
   password VARCHAR(255) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS saved_trips (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES friday_users(id),
+  destination_id INTEGER REFERENCES destinations(id),
+  notes TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

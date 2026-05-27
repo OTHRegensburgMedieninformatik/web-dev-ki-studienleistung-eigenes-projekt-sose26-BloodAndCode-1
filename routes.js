@@ -15,5 +15,7 @@ router.get("/register", accounts.register);
 router.post("/authenticate", accounts.authenticate);
 router.post("/register", accounts.createAccount);
 router.get("/logout", accounts.logout);
+router.post("/destinations/:id/save", accounts.saveTrip);
+router.get("/mytrips", accounts.myTrips);
 
 module.exports = router;
