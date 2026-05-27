@@ -10,10 +10,23 @@
           <a class="nav-link" href="/search">Suchen</a>
         </li>
       </ul>
+      <ul class="navbar-nav">
+        {{#if user}}
+          <li class="nav-item">
+            <span class="nav-link">Hallo, {{user.name}}</span>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Ausloggen</a>
+          </li>
+        {{else}}
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Einloggen</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/register">Registrieren</a>
+          </li>
+        {{/if}}
+      </ul>
     </div>
   </div>
 </nav>
-
-<script>
-  $("#{{id}}").addClass("active");
-</script>

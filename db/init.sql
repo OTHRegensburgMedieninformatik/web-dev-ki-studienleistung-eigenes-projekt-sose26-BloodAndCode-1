@@ -17,3 +17,11 @@ insert Into destinations (name, country, lat, lon, distance_km, description) VAL
   ('Landshut', 'Deutschland', 48.5369, 12.1525, 65, 'Mittelalterliche Stadt mit Burg Trausnitz'),
   ('Ingolstadt', 'Deutschland', 48.7665, 11.4257, 60, 'Audi-Stadt an der Donau'),
   ('Straubing', 'Deutschland', 48.8817, 12.5768, 40, 'Gemütliche Niederbayerische Stadt');
+
+  CREATE TABLE IF NOT EXISTS friday_users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(100) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
