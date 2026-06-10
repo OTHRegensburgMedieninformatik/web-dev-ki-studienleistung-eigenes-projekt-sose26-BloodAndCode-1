@@ -1,11 +1,36 @@
 {{> menu}}
 
-<h2>{{destination.name}}</h2>
-<p>{{destination.country}} · {{destination.distance_km}} km entfernt</p>
-<p>{{destination.description}}</p>
+<div class="mt-4">
+  <h2>{{destination.name}}</h2>
+  <p class="text-muted">{{destination.country}} · {{destination.distance_km}} km entfernt</p>
+  <p>{{destination.description}}</p>
+</div>
+
+{{#if weather}}
+<div class="card mb-4" style="max-width: 400px;">
+  <div class="card-body">
+    <h5 class="card-title">🌤️ Wetter am Wochenende</h5>
+    <p class="mb-1">Sa: {{weather.saturday.emoji}} {{weather.saturday.temp}}°C — {{weather.saturday.label}}</p>
+    <p class="mb-0">So: {{weather.sunday.emoji}} {{weather.sunday.temp}}°C — {{weather.sunday.label}}</p>
+  </div>
+</div>
+{{/if}}
+
+<div id="map" style="height: 400px; border-radius: 8px;" class="mb-4"></div>
+
+<script>
+  const map = L.map('map').setView([{{destination.lat}}, {{destination.lon}}], 13);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+  L.marker([{{destination.lat}}, {{destination.lon}}])
+    .addTo(map)
+    .bindPopup('{{destination.name}}')
+    .openPopup();
+</script>
 
 {{#if user}}
-<div class="card mt-4" style="max-width: 400px;">
+<div class="card mt-2" style="max-width: 400px;">
   <div class="card-body">
     <h5 class="card-title">Reise speichern</h5>
     <form action="/destinations/{{destination.id}}/save" method="POST">
@@ -18,5 +43,5 @@
   </div>
 </div>
 {{else}}
-<p class="mt-4 text-muted"><a href="/login">Einloggen</a> um diese Reise zu speichern.</p>
+<p class="text-muted"><a href="/login">Einloggen</a> um diese Reise zu speichern.</p>
 {{/if}}
