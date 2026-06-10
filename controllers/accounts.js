@@ -30,7 +30,10 @@ const accounts = {
 
   async createAccount(request, response) {
     const user = request.body;
-    await userstore.addUser(user);
+    const error = await userstore.addUser(user);
+    if (error === "23505") {
+      return response.render("register", { error: "Diese E-Mail ist bereits registriert." });
+    }
     logger.info("Creating account", user);
     response.redirect("/");
   },

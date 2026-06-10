@@ -11,8 +11,10 @@ const userstore = {
       const client = db.getDataStore();
       await client.query(query, values);
       logger.info("User added", user);
+      return null;
     } catch (e) {
       logger.error("Error adding user", e);
+      return e.code;
     }
   },
 
