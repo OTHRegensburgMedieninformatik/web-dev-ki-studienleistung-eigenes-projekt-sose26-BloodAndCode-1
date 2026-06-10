@@ -1,5 +1,9 @@
 {{> menu}}
 
+{{#if error}}
+<div class="alert alert-warning mt-3">{{error}}</div>
+{{/if}}
+
 <h2 class="mt-4">Suchergebnisse</h2>
 <p class="text-muted">Orte mit gutem Wetter am Wochenende in deiner Nähe</p>
 
@@ -25,4 +29,9 @@
     </div>
   </div>
   {{/each}}
+  {{#unless destinations.length}}
+  <div class="alert alert-info mt-3">
+  Keine Reiseziele gefunden. Versuche eine größere Entfernung.
+  </div>
+  {{/unless}}
 </div>

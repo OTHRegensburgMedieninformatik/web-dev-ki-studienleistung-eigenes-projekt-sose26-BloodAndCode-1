@@ -8,7 +8,8 @@ Create Table IF NOT Exists destinations (
     description text
 );
 
-insert Into destinations (name, country, lat, lon, distance_km, description) VALUES
+INSERT INTO destinations (name, country, lat, lon, distance_km, description) 
+SELECT * FROM (VALUES
   ('München', 'Deutschland', 48.1351, 11.5820, 107, 'Bayerische Landeshauptstadt mit viel Kultur'),
   ('Nürnberg', 'Deutschland', 49.4521, 11.0767, 100, 'Historische Altstadt und Kaiserburg'),
   ('Salzburg', 'Österreich', 47.8095, 13.0550, 130, 'Mozarts Geburtsstadt'),
@@ -16,7 +17,9 @@ insert Into destinations (name, country, lat, lon, distance_km, description) VAL
   ('Passau', 'Deutschland', 48.5748, 13.4647, 100, 'Dreiflüssestadt an Donau, Inn und Ilz'),
   ('Landshut', 'Deutschland', 48.5369, 12.1525, 65, 'Mittelalterliche Stadt mit Burg Trausnitz'),
   ('Ingolstadt', 'Deutschland', 48.7665, 11.4257, 60, 'Audi-Stadt an der Donau'),
-  ('Straubing', 'Deutschland', 48.8817, 12.5768, 40, 'Gemütliche Niederbayerische Stadt');
+  ('Straubing', 'Deutschland', 48.8817, 12.5768, 40, 'Gemütliche Niederbayerische Stadt')
+) AS v(name, country, lat, lon, distance_km, description)
+WHERE NOT EXISTS (SELECT 1 FROM destinations);
 
   CREATE TABLE IF NOT EXISTS friday_users (
   id SERIAL PRIMARY KEY,

@@ -68,4 +68,20 @@ async function getWeekendWeather(lat, lon) {
   }
 }
 
-module.exports = { getWeekendWeather };
+async function validateLocation(location) {
+  try {
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`;
+    const response = await fetch(url, {
+      headers: {
+        "User-Agent": "Friday-WeatherApp/1.0"
+      }
+    });
+    const data = await response.json();
+    return data.length > 0;
+  } catch (e) {
+    logger.error("Nominatim API error", e);
+    return true;
+  }
+}
+
+module.exports = { getWeekendWeather, validateLocation };
