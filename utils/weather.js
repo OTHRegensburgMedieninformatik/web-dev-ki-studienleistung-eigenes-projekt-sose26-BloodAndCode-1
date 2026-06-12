@@ -35,6 +35,10 @@ async function getWeekendWeather(lat, lon) {
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,weathercode&timezone=Europe%2FBerlin&forecast_days=7`;
     const response = await fetch(url);
     const data = await response.json();
+
+    if (!data.daily) {
+      return null;
+    }
     //logger.info("API response: " + JSON.stringify(data));
 
     const { saturday, sunday } = getWeekendDates();

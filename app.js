@@ -8,7 +8,13 @@ dotenv.config();
 
 const app = express();
 
-app.engine('.hbs', handlebars.engine({extname: '.hbs'}));
+app.engine('.hbs', handlebars.engine({
+  extname: '.hbs',
+  helpers: {
+    add: (a, b) => a + b,
+    subtract: (a, b) => a - b,
+  }
+}));
 app.set('view engine', '.hbs');
 app.set('views', './views');
 

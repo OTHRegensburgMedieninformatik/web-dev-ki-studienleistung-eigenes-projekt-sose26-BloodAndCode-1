@@ -34,4 +34,21 @@
   Keine Reiseziele gefunden. Versuche eine größere Entfernung.
   </div>
   {{/unless}}
+  {{#if destinations.length}}
+  <div class="d-flex justify-content-between align-items-center mt-3">
+  {{#if hasPrev}}
+  <a href="/search?location={{location}}&maxDistance={{maxDistance}}&page={{subtract currentPage 1}}" class="btn btn-outline-secondary">← Zurück</a>
+  {{else}}
+  <span></span>
+  {{/if}}
+
+  <span class="text-muted">Seite {{currentPage}} von {{totalPages}}</span>
+
+  {{#if hasNext}}
+  <a href="/search?location={{location}}&maxDistance={{maxDistance}}&page={{add currentPage 1}}" class="btn btn-outline-secondary">Weiter →</a>
+  {{else}}
+  <span></span>
+  {{/if}}
+  </div>
+  {{/if}}
 </div>
