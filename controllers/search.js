@@ -1,6 +1,7 @@
 const logger = require("../utils/logger.js");
 const db = require("../db/db.js");
 const accounts = require("./accounts.js");
+const destinationStore = require("../models/destination-store.js");
 const { getWeekendWeather, getLocationCoordinates, calculateDistance } = require("../utils/weather.js");
 
 const search = {
@@ -23,10 +24,10 @@ const search = {
       return response.render("search", viewData);
     }
 
-    const client = db.getDataStore();
-    const result = await client.query("SELECT * FROM destinations");
+    //const client = db.getDataStore();
+    const allDestinations = await destinationStore.getAllDestinations();
 
-    const destinationsWithDistance = result.rows
+    const destinationsWithDistance = allDestinations
       .map((destination) => {
         const distance = calculateDistance(coords.lat, coords.lon, destination.lat, destination.lon);
         return { ...destination, distance_km: Math.round(distance) };

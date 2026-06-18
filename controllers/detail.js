@@ -1,18 +1,13 @@
 const logger = require("../utils/logger.js");
-const db = require("../db/db.js");
 const accounts = require("./accounts.js");
+const destinationStore = require("../models/destination-store.js");
 const { getWeekendWeather } = require("../utils/weather.js");
 
 const destinations = {
   async show(request, response) {
     logger.info("destination detail rendering");
     const user = await accounts.getCurrentUser(request);
-    const client = db.getDataStore();
-    const result = await client.query(
-      "SELECT * FROM destinations WHERE id = $1",
-      [request.params.id]
-    );
-    const destination = result.rows[0];
+    const destination = await destinationStore.getDestinationById(request.params.id);
     const weather = await getWeekendWeather(destination.lat, destination.lon);
     const viewData = {
       title: destination.name,
